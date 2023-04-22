@@ -15,27 +15,9 @@ app.use(bodyParser.urlencoded({
 const User = require('./Database/DBs/User.js').User
 
 
-
-
-
-app.get("/", (req, res) => {
-    res.render("Home.html")
-
-})
-app.get('/Sign-Up', function (req, res) {
-    res.render('Sign-Up.html');
-});
-
-app.get('/Sign-Up-Service', function (req, res) {
-    res.render('Sign-Up-Service.html');
-});
-
 app.get('/Log-in', function (req, res) {
     res.render('Log-in.html');
 });
-
-
-
 
 app.post('/Log-In', (req, res) => {
     try {
@@ -74,6 +56,25 @@ app.post('/Log-In', (req, res) => {
 
     }
 });
+
+
+app.get("/", (req, res) => {
+    res.render("Home.html")
+
+})
+app.get('/Sign-Up', function (req, res) {
+    res.render('Sign-Up.html');
+});
+
+app.get('/Sign-Up-Service', function (req, res) {
+    res.render('Sign-Up-Service.html');
+});
+
+
+
+
+
+
 // settings for password
 var passwordschema = new passwordValidator();
 
@@ -83,6 +84,12 @@ passwordschema
     .has().uppercase()
     .has().not().spaces()
     .has().digits(2);
+
+
+
+
+
+
 app.post("/Sign-Up", (req, res) => {
 
     let users = new User({
