@@ -18,6 +18,15 @@ const User = require('./Database/DBs/User.js').User
 app.get('/Log-in', function (req, res) {
     res.render('Log-in.html');
 });
+app.get('/profile', function (req, res) {
+    res.render('profile');
+});
+app.get('/Profile-Service1', function (req, res) {
+    res.render('Profile-Service1');
+});
+app.get('/profile-cos', function (req, res) {
+    res.render('Profile-cos');
+});
 
 app.post('/Log-In', (req, res) => {
     try {
@@ -33,13 +42,14 @@ app.post('/Log-In', (req, res) => {
                 if (req.body.password === user.password) {
                     console.log(user);
                     console.log("\n inside the login\n");
-                    if (user.Roll === 'Employee') {
+                    if (user.Roll === 'Lecture') {
                         return res.redirect("/Profile-Service1");
                     }
                     if (user.Roll === 'Admin') {
+                        console.log(user);
                         return res.redirect("/profile"); /////////////////////
                     }
-                    if (user.Roll === 'customer') {
+                    if (user.Roll === 'Student') {
                         return res.redirect("/profile-cos");
                     }
                     // req.session.user = user;
