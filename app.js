@@ -27,6 +27,9 @@ app.get('/Profile-Service1', function (req, res) {
 app.get('/profile-cos', function (req, res) {
     res.render('Profile-cos');
 });
+app.get('/EquipmentProd', function (req, res) {
+    res.render('EquipmentProd.html');
+});
 
 app.post('/Log-In', (req, res) => {
     try {
