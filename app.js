@@ -30,6 +30,9 @@ app.get('/profile-cos', function (req, res) {
 app.get('/EquipmentProd', function (req, res) {
     res.render('EquipmentProd.html');
 });
+app.get('/policy', function (req, res) {
+    res.render('policy.html');
+});
 
 app.post('/Log-In', (req, res) => {
     try {
