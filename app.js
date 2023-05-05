@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 const User = require('./Database/DBs/User.js').User
+const List = require('./Database/DBs/List.js').List
+
 
 
 app.get('/Log-in', function (req, res) {
