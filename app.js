@@ -12,6 +12,7 @@ app.engine('html', engines.mustache);
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 const User = require('./Database/DBs/User.js').User
 const List = require('./Database/DBs/List.js').List
 
@@ -24,17 +25,29 @@ app.get('/profile', function (req, res) {
     res.render('profile');
 });
 app.get('/Profile-Service1', function (req, res) {
+
     res.render('Profile-Service1');
 });
 app.get('/profile-cos', function (req, res) {
     res.render('Profile-cos');
 });
-app.get('/EquipmentProd', function (req, res) {
-    res.render('EquipmentProd.html');
+app.get('/ListProd', function (req, res) {
+    res.render('ListProd.html');
+});
+app.get('/ListProdAd', function (req, res) {
+    res.render('ListProdAd.html');
+});
+app.get('/ListProdLe', function (req, res) {
+    res.render('ListProdLe.html');
 });
 app.get('/policy', function (req, res) {
     res.render('policy.html');
 });
+app.get('/AddProduct', function (req, res) {
+    res.render('AddProduct.html');
+});
+
+
 
 app.post('/Log-In', (req, res) => {
     try {
