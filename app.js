@@ -242,16 +242,6 @@ app.post("/AddProduct", (req, res) => {
         }
     });
 })
-app.post("/Editamount", async (req, res) => {
-    
-    let p = JSON.parse(req.body.Prod);
-    let a1=req.body.amount1;
-    let id = p._id;
-    let up=await List.findOne({_id:id});
-    up.Amount=a1;
-    await up.save();
-    res.redirect('/ListProdAd')
-})
 app.post("/Editdate", async (req, res) => {
     
     let p = JSON.parse(req.body.Prod);
@@ -262,4 +252,15 @@ app.post("/Editdate", async (req, res) => {
     await up.save();
     res.redirect('/ListProdAd')
 })
+app.post("/Editamount", async (req, res) => {
+    
+    let p = JSON.parse(req.body.Prod);
+    let a1=req.body.amount1;
+    let id = p._id;
+    let up=await List.findOne({_id:id});
+    up.Amount=a1;
+    await up.save();
+    res.redirect('/ListProdAd')
+})
+
 module.exports = app;
