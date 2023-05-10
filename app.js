@@ -31,14 +31,17 @@ app.get('/Profile-Service1', function (req, res) {
 app.get('/profile-cos', function (req, res) {
     res.render('Profile-cos');
 });
-app.get('/ListProd', function (req, res) {
-    res.render('ListProd.html');
+app.get('/ListProd', async (req, res)=> {
+    let Prod = await List.find({});
+    res.render('ListProd',{Prod});
 });
-app.get('/ListProdAd', function (req, res) {
-    res.render('ListProdAd.html');
+app.get('/ListProdAd', async (req, res)=> {
+    let Prod = await List.find({});
+    res.render('ListProdAd',{Prod});
 });
-app.get('/ListProdLe', function (req, res) {
-    res.render('ListProdLe.html');
+app.get('/ListProdLe', async (req, res)=> {
+    let Prod = await List.find({});
+    res.render('ListProdLe',{Prod});
 });
 app.get('/policy', function (req, res) {
     res.render('policy.html');
@@ -226,4 +229,37 @@ app.get('/Log-out', (req, res) => {
     console.log("logout user");
     res.redirect('/Log-in.html');
 });
+
+app.post("/AddProduct", (req, res) => {
+    let Prod = new List ({
+        Name : req.body.Name,
+        Amount : req.body.Amount,
+        Date : req.body.Date,
+    })
+    Prod.save(function (err) {
+        if (!err) {
+            return res.redirect('/ListProdAd');
+        }
+    });
+})
+app.post("/Editamount", async (req, res) => {
+    
+    let p = JSON.parse(req.body.Prod);
+    let a1=req.body.amount1;
+    let id = p._id;
+    let up=await List.findOne({_id:id});
+    up.Amount=a1;
+    await up.save();
+    res.redirect('/ListProdAd')
+})
+app.post("/Editdate", async (req, res) => {
+    
+    let p = JSON.parse(req.body.Prod);
+    let a1=req.body.date1;
+    let id = p._id;
+    let up=await List.findOne({_id:id});
+    up.Date=a1;
+    await up.save();
+    res.redirect('/ListProdAd')
+})
 module.exports = app;

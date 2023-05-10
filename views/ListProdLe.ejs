@@ -1,15 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Log-in.css">
-    <script defer src="https://use.fontawesome.com/releases/v6.2.1/js/all.js"></script>
-    <title>Add Product</title>
-</head>
-<style>
+  <link rel="stylesheet" href="List.css">
+  <style>
     html, body, div, p, ul, li {
   margin: 0;
   padding: 0;
@@ -47,32 +40,62 @@
   color: #fff;
   text-decoration: none;
 }
+
+
+body {
+  background-image: url("images/bg4.jpg");
+  background-size: cover;
+ }
+      
 </style>
-
+</head>
 <body>
-    <div class="nav">
-        <ul>
-          <li><a href="profile" class="nav-link">Profile</a></li>
-          <li><a href="policy.html" class="nav-link"><em>Policy</em></a></li>
-          <li><a href="policyprod.html" class="nav-link">policy Products</a></li>
-          <li><a href="ListProdAd" class="nav-link">List Products</a></li>
-          <li><a href="Log-in.html" class="nav-link">Log Out</a></li>
-        </ul>
-      </div>
-    <br>
-
-
-    <div class="login-block">
-        <h1><i> Add Product </i></h1>
-        <form action="/AddProduct" method="POST">
-            <input name="Name" type="text" placeholder="Name"  />
-            <input name="Amount" type="number" placeholder="Amount" />
-            <input name="Date" type="date" placeholder="Date" />
-            
-            
-            <button type="submit">Add</button>
-        </form>
-    </div>
+  <div class="nav">
+    <ul>
+      <li><a href="Profile-Service1" class="nav-link">Profile</a></li>
+      <li><a href="policy.html" class="nav-link"><em>Policy</em></a></li>
+      <li><a href="policyprod.html" class="nav-link">policy Products</a></li>
+      <li><a href="Log-in.html" class="nav-link">Log Out</a></li>
+    </ul>
+  </div>
+  <br>
+  <br>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Amount
+        </th>
+        <th>
+          Order
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%Prod.forEach(Prod=>{ %>
+      <tr>
+        <td>
+          <p>
+            <%= Prod.Name %>
+          </p>
+        </td>
+        <td>
+          <p>
+            <%= Prod.Amount %>
+          </p>
+        </td>
+        <td class='select'>
+          <a class='button' href='#'>
+            Select
+          </a>
+        </td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
 </body>
-
 </html>
+``
