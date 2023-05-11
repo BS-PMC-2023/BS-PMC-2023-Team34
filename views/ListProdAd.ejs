@@ -53,8 +53,6 @@ body {
   <div class="nav">
     <ul>
       <li><a href="profile" class="nav-link">Profile</a></li>
-      <li><a href="policy.html" class="nav-link"><em>Policy</em></a></li>
-      <li><a href="policyprod.html" class="nav-link">policy Products</a></li>
       <li><a href="Addproduct.html" class="nav-link">Add Product</a></li>
       <li><a href="Log-in.html" class="nav-link">Log Out</a></li>
     </ul>
@@ -113,7 +111,6 @@ body {
         </td>
         <td>
           <form method="POST" action="/Editdate">
-            <!--<input type="text" name="<%= Prod %>" /> -->
             <p>
               <%= Prod.Date %>
             </p>
@@ -124,7 +121,6 @@ body {
         </td>
         <td>
         <form method="POST" action="/Editamount">
-          <!--<input type="text" name="<%= Prod %>" /> -->
           <input type="number" name="amount1" value="amount1"/>
           <input type="hidden" name="Prod" value='<%= JSON.stringify(Prod) %>' />
           <button type="submit">Submit</button>
