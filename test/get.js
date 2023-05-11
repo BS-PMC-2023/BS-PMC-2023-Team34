@@ -107,7 +107,7 @@ describe('Check if the routes goes AddProduct page!', function () {
       const res = await request(app).get('/AddProduct');
       expect(res.should.have.status(200));
     });
-});
+});*/
 
 
 
