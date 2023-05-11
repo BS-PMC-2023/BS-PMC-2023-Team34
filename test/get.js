@@ -50,7 +50,8 @@ describe('Check if the routes goes Profile-Service1 page!', function () {
     });
 });
 
-//5 /*
+//5 
+/*
 describe('Check if the routes goes profile-cos page!', function () {
 
     test('responds to /profile-cos', async () => {
@@ -98,7 +99,8 @@ describe('Check if the routes goes policy page!', function () {
     });
 });
 
-//10/*
+//10
+/*
 describe('Check if the routes goes AddProduct page!', function () {
 
     test('responds to /AddProduct', async () => {
