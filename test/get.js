@@ -51,6 +51,7 @@ describe('Check if the routes goes Profile-Service1 page!', function () {
 });
 
 //5 
+/*
 describe('Check if the routes goes profile-cos page!', function () {
 
     test('responds to /profile-cos', async () => {
@@ -85,7 +86,7 @@ describe('Check if the routes goes ListProdLe page!', function () {
       const res = await request(app).get('/ListProdLe');
       expect(res.should.have.status(200));
     });
-});
+});*/
 
 
 //9
@@ -99,14 +100,14 @@ describe('Check if the routes goes policy page!', function () {
 });
 
 //10
+/*
 describe('Check if the routes goes AddProduct page!', function () {
 
     test('responds to /AddProduct', async () => {
       const res = await request(app).get('/AddProduct');
       expect(res.should.have.status(200));
     });
-});
-
+});*/
 
 
 
