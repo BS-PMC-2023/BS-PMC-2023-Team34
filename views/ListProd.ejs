@@ -64,9 +64,7 @@ body {
         <th>
           Name
         </th>
-        <th>
-          Amount
-        </th>
+
         <th>
           Date
         </th>
@@ -83,20 +81,17 @@ body {
             <%= Prod.Name %>
           </p>
         </td>
-        <td>
-          <p>
-            <%= Prod.Amount %>
-          </p>
-        </td>
+
         <td>
           <p>
             <%= Prod.Date %>
           </p>
         </td>
         <td class='select'>
-          <a class='button' href='#'>
-            Select
-          </a>
+          <form method="POST" action="/Order">
+            
+            <button class='button' type="submit">Submit</button>
+          </form>
         </td>
       </tr>
       <%})%>

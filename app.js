@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 const User = require('./Database/DBs/User.js').User
-const List = require('./Database/DBs/List.js').List
+const lists = require('./Database/DBs/List.js').lists
 
 
 
@@ -32,15 +32,15 @@ app.get('/profile-cos', function (req, res) {
     res.render('Profile-cos');
 });
 app.get('/ListProd', async (req, res)=> {
-    let Prod = await List.find({});
+    let Prod = await lists.find({});
     res.render('ListProd',{Prod});
 });
 app.get('/ListProdAd', async (req, res)=> {
-    let Prod = await List.find({});
+    let Prod = await lists.find({});
     res.render('ListProdAd',{Prod});
 });
 app.get('/ListProdLe', async (req, res)=> {
-    let Prod = await List.find({});
+    let Prod = await lists.find({});
     res.render('ListProdLe',{Prod});
 });
 app.get('/policy', function (req, res) {
@@ -48,6 +48,12 @@ app.get('/policy', function (req, res) {
 });
 app.get('/AddProduct', function (req, res) {
     res.render('AddProduct.html');
+});
+
+
+app.get('/Log-out', (req, res) => {
+    console.log("logout user");
+    res.redirect('/Log-in.html');
 });
 
 
@@ -67,14 +73,19 @@ app.post('/Log-In', (req, res) => {
                     console.log(user);
                     console.log("\n inside the login\n");
                     if (user.Roll === 'Lecture') {
-                        return res.redirect("/Profile-Service1");
+                        //return res.redirect("/Profile-Service1");
+                        return res.render('Profile-Service1', { user: user });
                     }
                     if (user.Roll === 'Admin') {
                         console.log(user);
-                        return res.redirect("/profile"); /////////////////////
+                        //return res.redirect("/profile"); /////////////////////
+                        return res.render('profile', { user: user });
                     }
                     if (user.Roll === 'Student') {
-                        return res.redirect("/profile-cos");
+                        //return res.redirect("/profile-cos");
+                        console.log(user);
+                        return res.render('profile-cos', { user: user });
+
                     }
                     // req.session.user = user;
                     console.log("asas");
@@ -225,13 +236,11 @@ app.post('/ForgotPW', function (req, res) {
         }
     });
 });
-app.get('/Log-out', (req, res) => {
-    console.log("logout user");
-    res.redirect('/Log-in.html');
-});
+
 
 app.post("/AddProduct", (req, res) => {
-    let Prod = new List ({
+    let Prod = new lists ({
+        Id : req.body.Id,
         Name : req.body.Name,
         Amount : req.body.Amount,
         Date : req.body.Date,
@@ -247,20 +256,19 @@ app.post("/Editdate", async (req, res) => {
     let p = JSON.parse(req.body.Prod);
     let a1=req.body.date1;
     let id = p._id;
-    let up=await List.findOne({_id:id});
+    let up=await lists.findOne({_id:id});
     up.Date=a1;
     await up.save();
     res.redirect('/ListProdAd')
 })
-app.post("/Editamount", async (req, res) => {
+// app.post("/Editamount", async (req, res) => {
     
-    let p = JSON.parse(req.body.Prod);
-    let a1=req.body.amount1;
-    let id = p._id;
-    let up=await List.findOne({_id:id});
-    up.Amount=a1;
-    await up.save();
-    res.redirect('/ListProdAd')
-})
+//     let p = JSON.parse(req.body.Prod);
+//     let id = p._id;
+//     let up=await lists.findOne({_id:id});
+//     up.Amount=a1;
+//     await up.save();
+//     res.redirect('/ListProdAd')
+// })
 
 module.exports = app;
