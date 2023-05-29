@@ -69,10 +69,14 @@
 <body>
     <div class="navbar">
         <a href="/">Home</a>
-        <a href="/mydevices">My Devices</a>
+        <% if (user.Roll === 'Admin') { %>
+        <a href="/ListProdAd">Back to Products</a>
+        <% } else { %>
+        <a href="/ListProd">Back to Products</a>
+        <% } %>
         <a href="/Log-out">Logout</a>
     </div>
-    <h1>Available Products</h1>
+    <h1>My Devices</h1>
     <table>
         <tr>
             <th>ID</th>
@@ -88,9 +92,9 @@
                 <td><%= product.Amount %></td>
                 <td><%= product.Date.toDateString() %></td>
                 <td>
-                    <form action="/Pick" method="POST">
+                    <form action="/Release" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">
-                        <input type="submit" value="Pick">
+                        <input type="submit" value="Return Back">
                     </form>
                 </td>
             </tr>

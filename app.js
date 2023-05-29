@@ -1,8 +1,11 @@
 var express = require("express")
 var bodyParser = require("body-parser")
+const { setCookie, readCookie, editCookie, deleteCookie } = require('./cookies');
 
 var passwordValidator = require('password-validator');
 const app = express();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 var engines = require('consolidate');
 
 app.set('view engine', 'ejs');
@@ -18,45 +21,170 @@ const lists = require('./Database/DBs/List.js').lists
 
 
 
-app.get('/Log-in', function (req, res) {
-    res.render('Log-in.html');
-});
+
 app.get('/profile', function (req, res) {
-    res.render('profile');
+    if (req.cookies && req.cookies.user) {
+        console.log(req.cookies.user);
+        User.findOne({
+                _id: req.cookies.user._id,
+            }, 
+            function (err, user) {
+                res.render('profile', { user: user });
+            }
+        )
+    }
+    res.redirect("/Log-in");
 });
 app.get('/Profile-Service1', function (req, res) {
-
-    res.render('Profile-Service1');
+    if (req.cookies && req.cookies.user) {
+        console.log(req.cookies.user);
+        User.findOne({
+                _id: req.cookies.user._id,
+            }, 
+            function (err, user) {
+                res.render('Profile-Service1', { user: user });
+            }
+        )
+    }
+    res.redirect("/Log-in");
 });
 app.get('/profile-cos', function (req, res) {
-    res.render('Profile-cos');
+    if (req.cookies && req.cookies.user) {
+        console.log(req.cookies.user);
+        User.findOne({
+                _id: req.cookies.user._id,
+            }, 
+            function (err, user) {
+                res.render('Profile-cos', { user: user });
+            }
+        )
+    }
+    res.redirect("/Log-in");
 });
+
+
+function auth(req,res){
+    if (req.cookies && req.cookies.user) {
+        console.log(req.cookies.user);
+        User.findOne({
+                _id: req.cookies.user._id,
+            }, 
+            function (err, user) {
+                if(user){
+                    console.log("Authinticarted")
+                }
+            }
+        )
+    }
+    else{
+        res.redirect("/Log-in");
+    }
+}
+
 app.get('/ListProd', async (req, res)=> {
-    let Prod = await lists.find({});
-    res.render('ListProd',{Prod});
+    auth(req,res);
+    let Prod = await lists.find({ user_id: null });
+    res.render('ListProd',{ products: Prod , user:req.cookies.user});
 });
 app.get('/ListProdAd', async (req, res)=> {
+    auth(req,res);
     let Prod = await lists.find({});
-    res.render('ListProdAd',{Prod});
+    res.render('ListProdAd',{products:Prod, user:req.cookies.user});
 });
 app.get('/ListProdLe', async (req, res)=> {
+    auth(req,res);
     let Prod = await lists.find({});
     res.render('ListProdLe',{Prod});
 });
-app.get('/policy', function (req, res) {
-    res.render('policy.html');
-});
 app.get('/AddProduct', function (req, res) {
+    auth(req,res);
     res.render('AddProduct.html');
 });
 
 
-app.get('/Log-out', (req, res) => {
-    console.log("logout user");
-    res.redirect('/Log-in.html');
+app.get('/policy', function (req, res) {
+    res.render('policy.html');
 });
 
+app.get('/mydevices', async (req, res)=> {
+    auth(req,res);
+    let Prod = await lists.find({ user_id: req.cookies.user.id });
+    res.render('myDevices', { products: Prod , user:req.cookies.user})
+});
 
+app.post('/Release', function(req, res) {
+    // Retrieve the selected product ID from the request body
+    const productId = req.body.productId;
+    
+    // Assuming you have implemented user authentication and retrieved the logged-in user's ID
+
+    // Update the user_id field of the selected product with the logged-in user's ID
+    lists.updateOne({ Id: productId }, { user_id: null , user_name: null}, function(err) {
+        if (err) {
+            console.log(err);
+            // Handle the error appropriately
+            res.status(500).send('An error occurred while picking the device.');
+        } else {
+            // Device picked successfully, redirect the user to the product list page or any other desired page
+            res.redirect(req.headers.referer);
+        }
+    });
+});
+
+app.post('/pick', function(req, res) {
+    // Retrieve the selected product ID from the request body
+    const productId = req.body.productId;
+    
+    // Assuming you have implemented user authentication and retrieved the logged-in user's ID
+    const loggedInUserId = req.cookies.user.id;
+
+    // Update the user_id field of the selected product with the logged-in user's ID
+    lists.updateOne({ Id: productId }, { user_id: loggedInUserId , user_name: req.cookies.user.FirstName}, function(err) {
+        if (err) {
+            console.log(err);
+            // Handle the error appropriately
+            res.status(500).send('An error occurred while picking the device.');
+        } else {
+            // Device picked successfully, redirect the user to the product list page or any other desired page
+            res.redirect(req.headers.referer);
+        }
+    });
+});
+
+app.get('/Log-in', function (req, res) {
+    if (req.cookies && req.cookies.user) {
+        console.log(req.cookies.user);
+        User.findOne({
+                _id: req.cookies.user._id,
+            }, 
+            function (err, user) {
+                if (user.Roll === 'Lecture') {
+                    //return res.redirect("/Profile-Service1");
+                    res.render('Profile-Service1', { user: user });
+                }
+                if (user.Roll === 'Admin') {
+                    console.log(user);
+                    //return res.redirect("/profile"); /////////////////////
+                    res.render('profile', { user: user });
+                }
+                if (user.Roll === 'Student') {
+                    //return res.redirect("/profile-cos");
+                    console.log(user);
+                    res.render('profile-cos', { user: user });
+
+                }
+            }
+        )
+    }
+    else{
+        res.render('Log-in.html');
+    }
+});
+app.get('/Log-out', (req, res) => {
+    console.log("logout user");
+    deleteCookie(res, 'user');
+    res.redirect('/Log-in.html');
+});
 
 app.post('/Log-In', (req, res) => {
     try {
@@ -70,8 +198,14 @@ app.post('/Log-In', (req, res) => {
             }
             if (user) { //user exist
                 if (req.body.password === user.password) {
+
                     console.log(user);
                     console.log("\n inside the login\n");
+                    console.log(`******** ${user} **********`)
+
+                    res.cookie('user', user);
+                    console.log(`******** ${req.cookies.user} **********`)
+
                     if (user.Roll === 'Lecture') {
                         //return res.redirect("/Profile-Service1");
                         return res.render('Profile-Service1', { user: user });
@@ -102,8 +236,8 @@ app.post('/Log-In', (req, res) => {
     }
 });
 
-
 app.get("/", (req, res) => {
+    //setCookie(res, 'myCookie', 'Hello, Cookie!', { httpOnly: true });
     res.render("Home.html")
 
 })
@@ -184,7 +318,6 @@ app.post("/Sign-Up", (req, res) => {
     });
 });
 
-
 app.post('/ForgotPW', function (req, res) {
     var password = req.body.password;
 
@@ -237,20 +370,21 @@ app.post('/ForgotPW', function (req, res) {
     });
 });
 
-
 app.post("/AddProduct", (req, res) => {
     let Prod = new lists ({
         Id : req.body.Id,
         Name : req.body.Name,
         Amount : req.body.Amount,
         Date : req.body.Date,
+        user_id: null
     })
     Prod.save(function (err) {
         if (!err) {
             return res.redirect('/ListProdAd');
         }
     });
-})
+});
+
 app.post("/Editdate", async (req, res) => {
     
     let p = JSON.parse(req.body.Prod);

@@ -73,7 +73,7 @@
             <h3 class="w3-padding-64"><b>Student Profile</b></h3>
         </div>
         <div class="w3-bar-block">
-            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Student : <%= user.FirstName  %></a>
+            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Student : <%= user.FirstName  %> <%= user.LastName%></a>
           </div>
           
         
@@ -81,6 +81,8 @@
         
         </div>
         <a href="ListProd" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">List of Products</a>
+        <br>
+        <a href="/mydevices" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">My devices</a>
         <br>
         <a href="Log-out" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Log-Out</a>
         </div>
