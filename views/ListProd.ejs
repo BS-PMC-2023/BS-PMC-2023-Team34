@@ -78,7 +78,6 @@
             <th>ID</th>
             <th>Name</th>
             <th>Amount</th>
-            <th>Date</th>
             <th>Action</th>
         </tr>
         <% products.forEach(function(product) { %>
@@ -86,7 +85,6 @@
                 <td><%= product.Id %></td>
                 <td><%= product.Name %></td>
                 <td><%= product.Amount %></td>
-                <td><%= product.Date.toDateString() %></td>
                 <td>
                     <form action="/Pick" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">

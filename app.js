@@ -139,7 +139,7 @@ app.post('/pick', function(req, res) {
     const loggedInUserId = req.cookies.user.id;
 
     // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { user_id: loggedInUserId , user_name: req.cookies.user.FirstName}, function(err) {
+    lists.updateOne({ Id: productId }, { user_id: loggedInUserId , user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`}, function(err) {
         if (err) {
             console.log(err);
             // Handle the error appropriately
@@ -375,7 +375,6 @@ app.post("/AddProduct", (req, res) => {
         Id : req.body.Id,
         Name : req.body.Name,
         Amount : req.body.Amount,
-        Date : req.body.Date,
         user_id: null
     })
     Prod.save(function (err) {
@@ -391,7 +390,6 @@ app.post("/Editdate", async (req, res) => {
     let a1=req.body.date1;
     let id = p._id;
     let up=await lists.findOne({_id:id});
-    up.Date=a1;
     await up.save();
     res.redirect('/ListProdAd')
 })

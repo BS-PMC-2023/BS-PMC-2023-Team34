@@ -78,7 +78,6 @@
             <th>ID</th>
             <th>Name</th>
             <th>Amount</th>
-            <th>Date</th>
             <th>Taken By</th>
             <th>Action</th>
         </tr>
@@ -87,7 +86,6 @@
                 <td><%= product.Id %></td>
                 <td><%= product.Name %></td>
                 <td><%= product.Amount %></td>
-                <td><%= product.Date.toDateString() %></td>
                 <td><%= product.user_id %> - <%= product.user_name %></td>
                 <td>
                     <form action="/Release" method="POST">
