@@ -1,102 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="List.css">
-  <style>
-    html, body, div, p, ul, li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
-}
+    <title>Product List</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
 
-/* This class is applied to the containing div <div class="nav"> and is used to set the background color and height of the navbar */
-.nav {
-  background: #000;
-  height: 60px; /* set same as height & line-height below */
-}
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-/* This rule centers the nav items verticaly in the bar with the height and line height properties. Spacing between the nav items is controlled by setting right and left padding.  */
-.nav li {
-  display: inline-block;
-  list-style: none;
-  height: 60px; /* should be the same as line-height */
-  line-height: 60px; /* should be the same as height */
-  padding: 0 40px; /* "0" sets top and bottom padding to none */
-}
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
 
-/* :hover allows you change the background color of the nav items when you mouse over them. Play around with the transition value to change the speed of the hover transition. */
-.nav li:hover {
-  background: red;
-  transition: background .3s;
-}
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-/* This rule is applied to the link <a> tag. It lets you turn off the link underline and set the link text color. */
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-}
+        tr:hover {
+            background-color: #f5f5f5;
+        }
 
+        .navbar {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-body {
-  background-image: url("images/bg4.jpg");
-  background-size: cover;
- }
-      
-</style>
+        .navbar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #555;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        input[type="submit"] {
+            padding: 6px 12px;
+            background-color: #4caf50;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <div class="nav">
-    <ul>
-      <li><a href="profile-cos" class="nav-link">Profile</a></li>
-      <li><a href="Log-in.html" class="nav-link">Log Out</a></li>
-    </ul>
-  </div>
-  <br>
-  <br>
-  <table>
-    <thead>
-      <tr>
-        <th>
-          Name
-        </th>
-
-        <th>
-          Date
-        </th>
-        <th>
-          Order
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <%Prod.forEach(Prod=>{ %>
-      <tr>
-        <td>
-          <p>
-            <%= Prod.Name %>
-          </p>
-        </td>
-
-        <td>
-          <p>
-            <%= Prod.Date %>
-          </p>
-        </td>
-        <td class='select'>
-          <form method="POST" action="/Order">
-            
-            <button class='button' type="submit">Submit</button>
-          </form>
-        </td>
-      </tr>
-      <%})%>
-    </tbody>
-  </table>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/mydevices">My Devices</a>
+        <a href="/Log-out">Logout</a>
+    </div>
+    <h1>Available Products</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        <% products.forEach(function(product) { %>
+            <tr>
+                <td><%= product.Id %></td>
+                <td><%= product.Name %></td>
+                <td><%= product.Amount %></td>
+                <td>
+                    <form action="/Pick" method="POST">
+                        <input type="hidden" name="productId" value="<%= product.Id %>">
+                        <input type="submit" value="Pick">
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
 </body>
 </html>
-``
