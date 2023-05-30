@@ -82,6 +82,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Amount</th>
+            <th>Picked Date</th>
+            <th>Return Back Date</th>
             <th>Action</th>
         </tr>
         <% products.forEach(function(product) { %>
@@ -89,6 +91,9 @@
                 <td><%= product.Id %></td>
                 <td><%= product.Name %></td>
                 <td><%= product.Amount %></td>
+                <td><%= product.startDate ? product.startDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
+                <td><%= product.endDate ? product.endDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
+
                 <td>
                     <form action="/Release" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">

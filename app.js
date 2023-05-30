@@ -119,7 +119,7 @@ app.post('/Release', function(req, res) {
     // Assuming you have implemented user authentication and retrieved the logged-in user's ID
 
     // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { user_id: null , user_name: null}, function(err) {
+    lists.updateOne({ Id: productId }, { user_id: null , user_name: null , endDate : null, startDate: null}, function(err) {
         if (err) {
             console.log(err);
             // Handle the error appropriately
@@ -131,15 +131,17 @@ app.post('/Release', function(req, res) {
     });
 });
 
+
 app.post('/pick', function(req, res) {
     // Retrieve the selected product ID from the request body
     const productId = req.body.productId;
-    
+    const endDate = req.body[`datetime-${req.body.productId}`];
+    console.log(endDate);
     // Assuming you have implemented user authentication and retrieved the logged-in user's ID
     const loggedInUserId = req.cookies.user.id;
 
     // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { user_id: loggedInUserId , user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`}, function(err) {
+    lists.updateOne({ Id: productId }, { startDate:new Date(), user_id: loggedInUserId , user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`, endDate: endDate}, function(err) {
         if (err) {
             console.log(err);
             // Handle the error appropriately

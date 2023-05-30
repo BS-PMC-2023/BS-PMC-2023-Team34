@@ -68,7 +68,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="/">Home</a>
+        <a href="/profile">Profile</a>
         <a href="/mydevices">My Devices</a>
         <a href="/Log-out">Logout</a>
     </div>
@@ -78,14 +78,18 @@
             <th>ID</th>
             <th>Name</th>
             <th>Amount</th>
+            <th>Picked Date</th>
+            <th>DeadLine</th>
             <th>Taken By</th>
             <th>Action</th>
         </tr>
         <% products.forEach(function(product) { %>
-            <tr>
+            <tr style="background-color: <%= (product.endDate && product.endDate <= new Date()) ? 'rgba(255, 0, 0, 0.2)' : '' %>;">
                 <td><%= product.Id %></td>
                 <td><%= product.Name %></td>
                 <td><%= product.Amount %></td>
+                <td><%= product.startDate ? product.startDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
+                <td><%= product.endDate ? product.endDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
                 <td><%= product.user_id %> - <%= product.user_name %></td>
                 <td>
                     <form action="/Release" method="POST">
@@ -93,11 +97,12 @@
                         <input type="submit" value="Return Back">
                     </form>
                     <form action="/Pick" method="POST">
-                      <input type="hidden" name="productId" value="<%= product.Id %>">
-                      <input type="submit" value="Pick">
-                  </form>
+                        <input type="hidden" name="productId" value="<%= product.Id %>">
+                        <input type="submit" value="Pick">
+                    </form>
                 </td>
             </tr>
+            
         <% }); %>
     </table>
 </body>
