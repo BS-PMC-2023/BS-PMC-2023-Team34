@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .navbar a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #555;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        input[type="submit"] {
+            padding: 6px 12px;
+            background-color: #4caf50;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <!---<a href="/profile">Profile</a>-->
+        <% if (user.Roll === 'Student') { %>
+            <a href="/profile-cos">Profile</a>
+            <% } else { %>
+            <a href="/Profile-Service1">Profile</a>
+            <% } %>
+        <a href="/Log-out">Logout</a>
+    </div>
+    <h1>All Devices</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            
+        </tr>
+        <% user.forEach(function(user) { %>
+                <td><%= user.FirstName %></td>
+                <td><%= user.email %></td>
+                <td><%= user.Phone %></td>
+            </tr>
+            
+        <% }); %>
+    </table>
+</body>
+</html>
