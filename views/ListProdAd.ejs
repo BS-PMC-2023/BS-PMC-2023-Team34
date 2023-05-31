@@ -92,7 +92,7 @@
                 <td><%= product.Amount %></td>
                 <td><%= product.startDate ? product.startDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
                 <td><%= product.endDate ? product.endDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
-                
+                <td><%= product.user_id %> - <%= product.user_name %></td>
                 <td>
                     <form action="/Release" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">
