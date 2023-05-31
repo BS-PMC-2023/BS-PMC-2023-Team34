@@ -84,7 +84,9 @@
             <th>Action</th>
         </tr>
         <% products.forEach(function(product) { %>
-            <tr style="background-color: <%= (product.endDate && product.endDate <= new Date()) ? 'rgba(255, 0, 0, 0.2)' : '' %>;">
+            <!---<tr style="background-color:<%= (product.endDate && product.endDate <= new Date()) ? 'rgba(255, 0, 0, 0.2)' : '' %>;">-->
+            <%= (product.endDate && product.endDate <= new Date()) ? 'rgba(255, 0, 0, 0.2)' : '' %>
+
                 <td><%= product.Id %></td>
                 <td><%= product.Name %></td>
                 <td><%= product.Amount %></td>
