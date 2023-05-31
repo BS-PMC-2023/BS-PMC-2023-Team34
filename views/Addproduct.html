@@ -66,7 +66,13 @@
         <h1><i> Add Product </i></h1>
         <form action="/AddProduct" method="POST">
             <input name="Id" type="number" placeholder="Id"  />
-            <input name="Name" type="text" placeholder="Name"  />
+            <!---<input name="Name" type="text" placeholder="Name"  />-->
+            <input name="Name" type="text" list="options" placeholder="Name" />
+              <datalist id="options">
+                  <option value="Podcast">
+                  <option value="Studio">
+              </datalist>
+
             <input name="Amount" type="number" placeholder="Amount" />
             
             
