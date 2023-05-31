@@ -101,6 +101,13 @@ app.get('/AddProduct', function (req, res) {
     res.render('AddProduct.html');
 });
 
+app.get('/Reports', async (req, res)=> {
+    auth(req,res);
+    let user = await User.find({Roll:"Admin"});
+    console.log(user);
+   res.render('Reports',{user:user});
+});
+
 
 app.get('/policy', function (req, res) {
     res.render('policy.html');
