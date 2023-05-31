@@ -89,6 +89,7 @@ app.get('/ListProd', async (req, res)=> {
 app.get('/ListProdAd', async (req, res)=> {
     auth(req,res);
     let Prod = await lists.find({});
+    const count = await lists.countDocuments({ Available: true });
     console.log(count);
     res.render('ListProdAd',{products:Prod, user:req.cookies.user , count:count});
 });
