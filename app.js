@@ -102,6 +102,8 @@ app.get('/AddProduct', function (req, res) {
 });
 
 
+
+
 app.get('/policy', function (req, res) {
     res.render('policy.html');
 });
