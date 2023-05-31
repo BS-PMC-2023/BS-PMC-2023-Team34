@@ -89,7 +89,8 @@ app.get('/ListProd', async (req, res)=> {
 app.get('/ListProdAd', async (req, res)=> {
     auth(req,res);
     let Prod = await lists.find({});
-    res.render('ListProdAd',{products:Prod, user:req.cookies.user});
+    console.log(count);
+    res.render('ListProdAd',{products:Prod, user:req.cookies.user , count:count});
 });
 app.get('/ListProdLe', async (req, res)=> {
     auth(req,res);
@@ -128,7 +129,7 @@ app.post('/Release', function(req, res) {
     // Assuming you have implemented user authentication and retrieved the logged-in user's ID
 
     // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { user_id: null , user_name: null , endDate : null, startDate: null}, function(err) {
+    lists.updateOne({ Id: productId }, { user_id: null , user_name: null , endDate : null, startDate: null , Available:true}, function(err) {
         if (err) {
             console.log(err);
             // Handle the error appropriately
@@ -150,7 +151,7 @@ app.post('/pick', function(req, res) {
     const loggedInUserId = req.cookies.user.id;
 
     // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { startDate:new Date(), user_id: loggedInUserId , user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`, endDate: endDate}, function(err) {
+    lists.updateOne({ Id: productId }, { startDate:new Date(), user_id: loggedInUserId , user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`, endDate: endDate , Available : false}, function(err) {
         if (err) {
             console.log(err);
             // Handle the error appropriately
@@ -385,7 +386,7 @@ app.post("/AddProduct", (req, res) => {
     let Prod = new lists ({
         Id : req.body.Id,
         Name : req.body.Name,
-        Amount : req.body.Amount,
+        Available:true,
         user_id: null
     })
     Prod.save(function (err) {

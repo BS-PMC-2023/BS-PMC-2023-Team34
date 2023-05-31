@@ -4,7 +4,7 @@ const ListSchema = new mongoose.Schema({
 
     Id:Number,
     Name: String,
-    Amount:Number,
+    Available:{type:Boolean,default:true},
     startDate:Date,
     endDate:Date,
     user_id:Number,
