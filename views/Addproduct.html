@@ -19,6 +19,7 @@
   vertical-align: baseline;
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
+  
 }
 
 /* This class is applied to the containing div <div class="nav"> and is used to set the background color and height of the navbar */
@@ -68,14 +69,12 @@
             <input name="Id" type="number" placeholder="Id"  />
             <!---<input name="Name" type="text" placeholder="Name"  />-->
             <input name="Name" type="text" list="options" placeholder="Name" />
+            <input name="totalAmount" type="number" list="options" placeholder="Amount" />
               <datalist id="options">
-                  <option value="Podcast">
-                  <option value="Studio">
+                <option value="Podcast">
+                <option value="Studio">
               </datalist>
 
-            <input name="Amount" type="number" placeholder="Amount" />
-            
-            
             <button type="submit">Add</button>
         </form>
     </div>

@@ -8,6 +8,8 @@
             flex-direction: column;
             align-items: center;
             font-family: Arial, sans-serif;
+            background-image: url("images/r.png");
+            background-size: cover;
         }
 
         h1 {
@@ -70,37 +72,32 @@
     <div class="navbar">
         <a href="/profile">Profile</a>
         <a href="/mydevices">My Devices</a>
+        <a href="/Addproduct.html">Add Product</a>
         <a href="/Log-out">Logout</a>
     </div>
     <h1>All Devices</h1>
     <table>
         <tr>
-            <th>ID</th>
             <th>Name</th>
-            <th>Amount</th>
-            <th>Picked Date</th>
-            <th>DeadLine</th>
-            <th>Taken By</th>
+            <th>Available</th>
             <th>Action</th>
         </tr>
         <% products.forEach(function(product) { %>
-            <!---<tr style="background-color:<%= (product.endDate && product.endDate <= new Date()) ? 'rgba(255, 0, 0, 0.2)' : '' %>;">-->
-            <%= (product.endDate && product.endDate <= new Date()) ? 'rgba(255, 0, 0, 0.2)' : '' %>
-
-                <td><%= product.Id %></td>
+            <tr>
                 <td><%= product.Name %></td>
-                <td><%= product.Amount %></td>
-                <td><%= product.startDate ? product.startDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
-                <td><%= product.endDate ? product.endDate.toLocaleString('en-US', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) : 'N/A' %></td>
-                <td><%= product.user_id %> - <%= product.user_name %></td>
+                <td><%= product.availableAmount %> / <%= product.totalAmount %></td>
                 <td>
                     <form action="/Release" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">
                         <input type="submit" value="Return Back">
                     </form>
-                    <form action="/Pick" method="POST">
+                    <form action="/list/<%= product.Id %>/edit" method="get">
                         <input type="hidden" name="productId" value="<%= product.Id %>">
-                        <input type="submit" value="Pick">
+                        <input style="background-color: rgba(76, 76, 173, 0.479);" type="submit" value="Edit">
+                    </form>
+                    <form action="/Delete" method="POST">
+                        <input type="hidden" name="productId" value="<%= product.Id %>">
+                        <input style="background-color: red;" type="submit" value="Delete">
                     </form>
                 </td>
             </tr>

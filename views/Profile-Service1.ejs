@@ -39,7 +39,8 @@
         body {
             background-image: url("images/r.png");
             background-size: cover;
-         }
+        }
+
     </style>
 </head>
 
@@ -59,11 +60,10 @@
         <div class="w3-bar-block">
             <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Lecture : <%= user.FirstName  %> <%= user.LastName%></a> 
         </div>
-        </div>
         <br>
-        </div>
         <a href="ListProd" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">List of Products</a>
-    
+        <br>
+        <a href="myDevices" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">My devices</a>
         <br>
         <a href="Reports" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Report</a>
         <br>
@@ -82,6 +82,60 @@
 
     <!-- Overlay effect when opening sidebar on small screens -->
     <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <div class="w3-main" style="margin-left:340px;margin-right:40px"></div>
+
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+
+        <div class="w3-container" style="margin-top:80px" id="Opening Hours">
+
+            <h1 class="w3-xxxlarge w3-text-red"><b>Opening Hours For Admins</b></h1>
+            <hr style="width:50px;border:5px solid #2f990f" class="w3-round">
+
+            <style>
+                table,
+                td,
+                th {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                
+                td,
+                th {
+                    padding: 20px;
+                } 
+            </style>
+
+            <table>
+                <tr>
+                    <th>Day</th>
+                    <th>Hours</th>
+                </tr>
+                <tr>
+                    <td>Sunday</td>
+                    <td>08:00-12:00</td>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>08:00-12:00</td>
+                </tr>
+                <tr>
+                    <td>Tusday</td>
+                    <td>08:00-12:00</td>
+                </tr>
+                <tr>
+                    <td>Saturday</td>
+                    <td>08:00-12:00</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>08:00-12:00</td>
+                </tr>
+            </table>
+        </div>
+
+      
     </body>
 
 </html>

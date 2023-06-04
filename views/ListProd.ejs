@@ -3,90 +3,23 @@
 <head>
     <title>Product List</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
         .navbar {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+        background-color: #f2f2f2;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
         }
 
         .navbar a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
         }
 
         .navbar a:hover {
-            color: #ddd;
+        color: #ff0000;
         }
 
-        form {
-            display: inline-block;
-        }
-
-        input[type="submit"] {
-            padding: 8px 16px;
-            background-color: #4caf50;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        .datetime-input {
-            display: inline-block;
-
-            margin: 5px;
-        }
-
-        .datetime-input label {
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .datetime-input input[type="datetime-local"] {
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
-        }
-
-        .datetime-input input[type="datetime-local"]:focus {
-            outline: none;
-            border-color: #4caf50;
-        }
     </style>
 </head>
 <body>
@@ -96,34 +29,93 @@
         <% } else { %>
         <a href="/profile-cos">Profile</a>
         <% } %>
-        <a href="/">Home</a>
         <a href="/mydevices">My Devices</a>
         <a href="/Log-out">Logout</a>
     </div>
     <h1>Available Products</h1>
-    <table>
-        <tr>
-            <th>ID</th>
+    <table class="product-table">
+        <thead>
+          <tr>
             <th>Name</th>
-            <th>Amount</th>
+            <th>Available</th>
             <th>Action</th>
-        </tr>
-        <% products.forEach(function(product) { %>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(function(product) { %>
             <tr>
-                <td><%= product.Id %></td>
-                <td><%= product.Name %></td>
-                <td><%= product.Amount %></td>
-                <td>
-                    <form action="/Pick" method="POST">
-                        <input type="hidden" name="productId" value="<%= product.Id %>">
-                        <input type="submit" value="Pick">
-                        <div class="datetime-input">
-                            <input type="datetime-local" id="datetime-<%= product.Id %>" name="datetime-<%= product.Id %>">
-                        </div>
-                    </form>
-                </td>
+              <td><%= product.Name %></td>
+              <td><%= product.availableAmount %> / <%= product.totalAmount %></td>
+              <td>
+                <form action="/Pick" method="POST">
+                  <input type="hidden" name="productId" value="<%= product.Id %>">
+                  <div class="action-container">
+                    <input type="submit" value="Pick" id="pick-button-<%= product.Id %>" class="pick-button" >
+                    <div class="input-container">
+                      <input type="datetime-local" id="datetime-<%= product.Id %>" name="datetime-<%= product.Id %>">
+                      <input type="number" id="amount-<%= product.Id %>" name="amount-<%= product.Id %>" min="0" max="<%= product.availableAmount %>">
+                    </div>
+                  </div>
+                </form>
+              </td>
             </tr>
-        <% }); %>
-    </table>
+          <% }); %>
+        </tbody>
+      </table>
+      
+      <style>
+        .product-table {
+          width: 100%;
+          border-collapse: collapse;
+          table-layout: fixed;
+          text-align: center;
+          background-color: #f9f9f9;
+        }
+      
+        .product-table th,
+        .product-table td {
+          padding: 10px;
+          border-bottom: 1px solid #ddd;
+        }
+      
+        .product-table th {
+          background-color: #f2f2f2;
+        }
+      
+        .product-table tr:hover {
+          background-color: #f5f5f5;
+        }
+      
+        .action-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+        }
+      
+        .input-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      
+        .input-container input {
+          margin: 5px;
+          padding: 5px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+      
+        .pick-button {
+          padding: 8px 16px;
+          background-color: #4caf50;
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          border-radius: 4px;
+          transition: background-color 0.3s ease;
+        }
+      
+      </style>
+      
 </body>
 </html>

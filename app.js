@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({
 
 const User = require('./Database/DBs/User.js').User
 const lists = require('./Database/DBs/List.js').lists
+const Order = require('./Database/DBs/order.js').Order
 
 
 
@@ -83,13 +84,13 @@ function auth(req,res){
 
 app.get('/ListProd', async (req, res)=> {
     auth(req,res);
-    let Prod = await lists.find({ user_id: null });
+    let Prod = await lists.find({ availableAmount: { $gt: 0 } });
     res.render('ListProd',{ products: Prod , user:req.cookies.user});
 });
 app.get('/ListProdAd', async (req, res)=> {
     auth(req,res);
     let Prod = await lists.find({});
-    const count = await lists.countDocuments({ Available: true });
+    const count = await lists.countDocuments();
     console.log(count);
     res.render('ListProdAd',{products:Prod, user:req.cookies.user , count:count});
 });
@@ -119,27 +120,91 @@ app.get('/policy', function (req, res) {
 
 app.get('/mydevices', async (req, res)=> {
     auth(req,res);
-    let Prod = await lists.find({ user_id: req.cookies.user.id });
-    res.render('myDevices', { products: Prod , user:req.cookies.user})
+    let order = await Order.find({ user_id: req.cookies.user.id });
+    res.render('myDevices', { orders: order , user:req.cookies.user})
 });
 
 app.post('/Release', function(req, res) {
     // Retrieve the selected product ID from the request body
     const productId = req.body.productId;
-    
     // Assuming you have implemented user authentication and retrieved the logged-in user's ID
 
-    // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { user_id: null , user_name: null , endDate : null, startDate: null , Available:true}, function(err) {
-        if (err) {
+    Order.findOneAndDelete({product_id : productId}, 
+        function(err, deletedDocument) {
+            if (err) {
             console.log(err);
             // Handle the error appropriately
+            } else {
+                if (deletedDocument) {
+                    // The document was found and deleted
+                    console.log(deletedDocument);
+                    lists.updateOne({ Id: productId }, { availableAmount: +deletedDocument.amount }, function(err) {
+                        if (err) {
+                            console.log(err);
+                            // Handle the error appropriately
+                            res.status(500).send('An error occurred while picking the device.');
+                        } else {
+                            // Device picked successfully, redirect the user to the product list page or any other desired page
+                            res.redirect(req.headers.referer);
+                        }
+                    });
+                    // Do something with the deleted document
+                } else {
+                    // The document was not found
+                    console.log('Document not found');
+                }
+            }
+        }
+    );
+    // Update the user_id field of the selected product with the logged-in user's ID
+   
+});
+
+app.get('/list/:id/edit', (req, res) => {
+    const listId = req.params.id;
+    // Fetch the data from the database using the listId
+    lists.findById({Id:req.params.id})
+        .then(list => {
+            // Render the edit.ejs file and pass the list data
+            res.render('edit', { list });
+        })
+        .catch(error => {
+            console.log('Error fetching data:', error);
+            res.status(500).send('Error fetching data');
+        });
+});
+
+// Handle the form submission and update the list item
+app.post('/list/:id', (req, res) => {
+    const listId = req.params.id;
+    const { name, totalAmount, availableAmount } = req.body;
+
+    // Update the list item in the database using the listId
+    lists.findByIdAndUpdate(listId, { Name: name, totalAmount, availableAmount })
+        .then(() => {
+            res.redirect('/list'); // Redirect to the list page after successful update
+        })
+        .catch(error => {
+            console.log('Error updating data:', error);
+            res.status(500).send('Error updating data');
+        });
+});
+
+app.post('/Delete', function(req, res) {
+    // Retrieve the selected product ID from the request body
+    const productId = req.body.productId;
+    // Assuming you have implemented user authentication and retrieved the logged-in user's ID
+
+
+    lists.deleteOne({ Id: productId }, function(err) {
+        if (err) {
+            console.log(err);
             res.status(500).send('An error occurred while picking the device.');
         } else {
-            // Device picked successfully, redirect the user to the product list page or any other desired page
             res.redirect(req.headers.referer);
-        }
+        }   
     });
+
 });
 
 
@@ -147,21 +212,39 @@ app.post('/pick', function(req, res) {
     // Retrieve the selected product ID from the request body
     const productId = req.body.productId;
     const endDate = req.body[`datetime-${req.body.productId}`];
+    const neededAmount = req.body[`amount-${req.body.productId}`];
     console.log(endDate);
     // Assuming you have implemented user authentication and retrieved the logged-in user's ID
     const loggedInUserId = req.cookies.user.id;
+      
 
-    // Update the user_id field of the selected product with the logged-in user's ID
-    lists.updateOne({ Id: productId }, { startDate:new Date(), user_id: loggedInUserId , user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`, endDate: endDate , Available : false}, function(err) {
-        if (err) {
+    lists.findOneAndUpdate(
+        { Id: productId },
+        { $inc: { availableAmount: -neededAmount } },
+        { new: true },
+        function(err,product) {
+          if (err) {
             console.log(err);
             // Handle the error appropriately
             res.status(500).send('An error occurred while picking the device.');
-        } else {
+          } else {
             // Device picked successfully, redirect the user to the product list page or any other desired page
+            const order = new Order({
+                product_id: productId,
+                product_name:product.Name,
+                startDate: new Date(),
+                endDate: endDate,
+                user_id: loggedInUserId,
+                user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`,
+                amount: neededAmount,
+            });
+            order.save();
             res.redirect(req.headers.referer);
+          }
         }
-    });
+    );
+      
+
 });
 
 app.get('/Log-in', function (req, res) {
@@ -387,7 +470,8 @@ app.post("/AddProduct", (req, res) => {
     let Prod = new lists ({
         Id : req.body.Id,
         Name : req.body.Name,
-        Available:true,
+        totalAmount : req.body.totalAmount,
+        availableAmount : req.body.totalAmount,
         user_id: null
     })
     Prod.save(function (err) {

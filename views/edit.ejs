@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Page</title>
+</head>
+<body>
+    <h1>Edit Page</h1>
+    <form action="/list/<%= list._id %>" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= list.Name %>">
+
+        <label for="totalAmount">Total Amount:</label>
+        <input type="number" id="totalAmount" name="totalAmount" value="<%= list.totalAmount %>">
+
+        <label for="availableAmount">Available Amount:</label>
+        <input type="number" id="availableAmount" name="availableAmount" value="<%= list.availableAmount %>">
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>
