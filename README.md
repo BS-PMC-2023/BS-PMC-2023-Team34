@@ -7,4 +7,3 @@
 3. npm i
 4. npm start
 5. open localhost:3000 in web
-

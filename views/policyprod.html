@@ -1,61 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="List.css">
-  <style>
-    html, body, div, p, ul, li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
-}
+  <head>
+    <link rel="stylesheet" href="List.css" />
+    <style>
+      html,
+      body,
+      div,
+      p,
+      ul,
+      li {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        font-family: "Roboto", sans-serif;
+        font-weight: 100;
+      }
 
-/* This class is applied to the containing div <div class="nav"> and is used to set the background color and height of the navbar */
-.nav {
-  background: #000;
-  height: 60px; /* set same as height & line-height below */
-}
+      /* This class is applied to the containing div <div class="nav"> and is used to set the background color and height of the navbar */
+      .nav {
+        background: #000;
+        height: 60px; /* set same as height & line-height below */
+      }
 
-/* This rule centers the nav items verticaly in the bar with the height and line height properties. Spacing between the nav items is controlled by setting right and left padding.  */
-.nav li {
-  display: inline-block;
-  list-style: none;
-  height: 60px; /* should be the same as line-height */
-  line-height: 60px; /* should be the same as height */
-  padding: 0 40px; /* "0" sets top and bottom padding to none */
-}
+      /* This rule centers the nav items verticaly in the bar with the height and line height properties. Spacing between the nav items is controlled by setting right and left padding.  */
+      .nav li {
+        display: inline-block;
+        list-style: none;
+        height: 60px; /* should be the same as line-height */
+        line-height: 60px; /* should be the same as height */
+        padding: 0 40px; /* "0" sets top and bottom padding to none */
+      }
 
-/* :hover allows you change the background color of the nav items when you mouse over them. Play around with the transition value to change the speed of the hover transition. */
-.nav li:hover {
-  background: red;
-  transition: background .3s;
-}
+      /* :hover allows you change the background color of the nav items when you mouse over them. Play around with the transition value to change the speed of the hover transition. */
+      .nav li:hover {
+        background: red;
+        transition: background 0.3s;
+      }
 
-/* This rule is applied to the link <a> tag. It lets you turn off the link underline and set the link text color. */
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-}
+      /* This rule is applied to the link <a> tag. It lets you turn off the link underline and set the link text color. */
+      .nav-link {
+        color: #fff;
+        text-decoration: none;
+      }
 
-
-body {
-  background-image: url("images/bg4.jpg");
-  background-size: cover;
- }   
-</style>
-</head>
-<body>
-  <div class="nav">
-    <ul>
-      <li><a href="Home.html" class="nav-link">Home</a></li>
-      <li><a href="policy.html" class="nav-link"><em>Policy</em></a></li>
-      <li><a href="policyprod.html" class="nav-link">policy Products</a></li>
-      <li><a href="Log-in.html" class="nav-link">Log in</a></li>
-    </ul>
-  </div>
+      body {
+        background-image: url("images/bg4.jpg");
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <ul>
+        <li><a href="Home.html" class="nav-link">Home</a></li>
+        <li>
+          <a href="policy.html" class="nav-link"><em>Policy</em></a>
+        </li>
+        <li><a href="policyprod.html" class="nav-link">policy Products</a></li>
+        <li><a href="Log-in.html" class="nav-link">Log in</a></li>
+      </ul>
+    </div>
   </body>
 </html>

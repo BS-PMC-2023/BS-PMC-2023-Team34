@@ -72,6 +72,7 @@
     <div class="navbar">
         <a href="/profile">Profile</a>
         <a href="/mydevices">My Devices</a>
+        <a href="/orders">Orders</a>
         <a href="/Addproduct.html">Add Product</a>
         <a href="/Log-out">Logout</a>
     </div>
@@ -87,13 +88,9 @@
                 <td><%= product.Name %></td>
                 <td><%= product.availableAmount %> / <%= product.totalAmount %></td>
                 <td>
-                    <form action="/Release" method="POST">
+                    <form action="/Pick" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">
-                        <input type="submit" value="Return Back">
-                    </form>
-                    <form action="/list/<%= product.Id %>/edit" method="get">
-                        <input type="hidden" name="productId" value="<%= product.Id %>">
-                        <input style="background-color: rgba(76, 76, 173, 0.479);" type="submit" value="Edit">
+                        <input type="submit" value="Pick">
                     </form>
                     <form action="/Delete" method="POST">
                         <input type="hidden" name="productId" value="<%= product.Id %>">
