@@ -16,15 +16,17 @@ pipeline {
                 sh 'npm run test'
             }
         }
-        stage('Code Coverage'){
-            steps{
-                sh 'npm t -- --coverage'
-            }
-        }
-        stage('Deliver') {
+        stage('Linting') {
             steps {
-            sh 'npm run test'
+                sh 'npx eslint . --ext .js'
             }
         }
+        stage('Formatting') {
+            steps {
+                sh 'npx prettier . --write'
+            }
+        }
+
     }
 }
+
