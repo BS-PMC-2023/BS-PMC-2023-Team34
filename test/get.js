@@ -19,7 +19,6 @@ describe("Check if the routes goes to login page!", function () {
 });
 //2
 
-
 describe("Check if the routes goes Home page!", function () {
   test("responds to /Home", async () => {
     const res = await request(app).get("/");
