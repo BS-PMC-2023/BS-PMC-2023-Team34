@@ -8,7 +8,13 @@
             flex-direction: column;
             align-items: center;
             font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-image: url("images/r.png");
+            background-size: cover;
         }
+        
+            
+        
 
         h1 {
             text-align: center;
@@ -68,26 +74,20 @@
 </head>
 <body>
     <div class="navbar">
-        <!---<a href="/profile">Profile</a>-->
-        <% if (user.Roll === 'Student') { %>
-            <a href="/profile-cos">Profile</a>
-            <% } else { %>
-            <a href="/Profile-Service1">Profile</a>
-            <% } %>
+        <a href="/profile">Profile</a>
         <a href="/Log-out">Logout</a>
     </div>
-    <h3>Send Mail To the Admin For Faulty product</h3>
     <table>
         <tr>
+            <th>Id</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
+            <th>Problem</th>
             
         </tr>
-        <% user.forEach(function(user) { %>
-                <td><%= user.FirstName %></td>
-                <td><%= user.email %></td>
-                <td><%= user.Phone %></td>
+        <% reports.forEach(function(report) { %>
+                <td><%= report.product_id %></td>
+                <td><%= report.product_name %></td>
+                <td><%= report.problem %></td>
             </tr>
             
         <% }); %>

@@ -26,6 +26,7 @@ app.use(
 const User = require("./Database/DBs/User.js").User;
 const lists = require("./Database/DBs/List.js").lists;
 const Order = require("./Database/DBs/order.js").Order;
+const Report = require("./Database/DBs/report.js").Report;
 
 const Status = {
   pending: "pending",
@@ -118,10 +119,15 @@ app.get("/AddProduct", function (req, res) {
   res.render("AddProduct.html");
 });
 
+app.get("/AddReport", function (req, res) {
+    auth(req, res);
+    res.render("AddReport.html");
+});
+
 app.get("/Reports", async (req, res) => {
   auth(req, res);
-  let user = await User.find({ Roll: "Admin" });
-  res.render("Reports", { user: user });
+  let prob = await Report.find({});
+  res.render("Reports", {reports:prob});
 });
 
 app.get("/orders", async (req, res) => {
@@ -323,7 +329,7 @@ app.post("/pick", function (req, res) {
           user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`,
           user_roll: req.cookies.user.Roll,
           status: Status.pending,
-          amount: product.totalAmount,
+          amount: req.cookies.user.Roll === "Admin" ? product.totalAmount : neededAmount,
         });
         order.save();
         res.redirect(req.headers.referer);
@@ -561,6 +567,20 @@ app.post("/AddProduct", (req, res) => {
     }
   });
 });
+
+app.post("/AddReport", (req, res) => {
+    let Prob = new Report({
+      product_id: req.body.product_id,
+      product_name: req.body.product_name,
+      problem:req.body.problem,
+      user_id: null,
+    });
+    Prob.save(function (err) {
+      if (!err) {
+        return res.redirect("/ListProdAd");
+      }
+    });
+  });
 
 app.post("/Editdate", async (req, res) => {
   let p = JSON.parse(req.body.Prod);
