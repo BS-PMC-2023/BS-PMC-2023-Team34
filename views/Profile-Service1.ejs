@@ -85,57 +85,91 @@
 
     <div class="w3-main" style="margin-left:340px;margin-right:40px"></div>
 
-    <div class="w3-main" style="margin-left:340px;margin-right:40px">
-
-
+     <!-- !PAGE CONTENT! -->
+     <div class="w3-main" style="margin-left:340px;margin-right:40px">
         <div class="w3-container" style="margin-top:80px" id="Opening Hours">
-
-            <h1 class="w3-xxxlarge w3-text-red"><b>Welcome : <%= user.FirstName  %></b></h1>
-            <h1 class="w3-xxxlarge w3-text-red"><b>Opening Hours For Admins</b></h1>
-            <hr style="width:50px;border:5px solid #2f990f" class="w3-round">
-
-            <style>
-                table,
-                td,
-                th {
-                    border: 1px solid black;
-                    border-collapse: collapse;
-                }
-                
-                td,
-                th {
-                    padding: 20px;
-                } 
-            </style>
-
-            <table>
-                <tr>
-                    <th>Day</th>
-                    <th>Hours</th>
-                </tr>
-                <tr>
-                    <td>Sunday</td>
-                    <td>08:00-12:00</td>
-                </tr>
-                <tr>
-                    <td>Monday</td>
-                    <td>08:00-12:00</td>
-                </tr>
-                <tr>
-                    <td>Tusday</td>
-                    <td>08:00-12:00</td>
-                </tr>
-                <tr>
-                    <td>Saturday</td>
-                    <td>08:00-12:00</td>
-                </tr>
-                <tr>
-                    <td>Thursday</td>
-                    <td>08:00-12:00</td>
-                </tr>
-            </table>
+          <h1 class="w3-xxxlarge" style="text-align: center; color: white;">
+            <b><span style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Hello <%= user.FirstName %></span></b>
+          </h1> 
+          <h1 class="w3-xxxlarge w3-text-red" style="text-align: center;"><b>Opening Hours For The Admin</b></h1>
+          <hr style="width:50px;border:5px solid #2f990f; margin-left:auto; margin-right:auto;" class="w3-round">
+      
+          <style>
+            table {
+              margin: 0 auto;
+              border-collapse: collapse;
+              width: 80%;
+            }
+            
+            th {
+              background-color: #2f990f;
+              color: #fff;
+              padding: 10px;
+              text-align: center;
+              font-family: Arial, sans-serif;
+              font-size: 16px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            
+            td {
+              border: 1px solid #ccc;
+              padding: 10px;
+              text-align: center;
+              font-family: Arial, sans-serif;
+              font-size: 14px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #f2f2f2;
+            }
+            
+            caption {
+              font-size: 18px;
+              font-weight: bold;
+              margin-bottom: 10px;
+              font-family: Arial, sans-serif;
+              text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            }
+          </style>
+          
+      
+          <table>
+            <caption>Opening Hours</caption>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Hours</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sunday</td>
+                <td>08:00-12:00</td>
+              </tr>
+              <tr>
+                <td>Monday</td>
+                <td>08:00-12:00</td>
+              </tr>
+              <tr>
+                <td>Tuesday</td>
+                <td>08:00-12:00</td>
+              </tr>
+              <tr>
+                <td>Saturday</td>
+                <td>08:00-12:00</td>
+              </tr>
+              <tr>
+                <td>Thursday</td>
+                <td>08:00-12:00</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
+      </div>
+      
+    </div>
       
     </body>
 

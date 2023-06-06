@@ -313,7 +313,7 @@ app.post("/pick", function (req, res) {
     { Id: productId },
     req.cookies.user.Roll === "Admin"
       ? { availableAmount: 0 }
-      : { $inc: { availableAmount: neededAmount } },
+      : { $inc: { availableAmount:- neededAmount } },
     { new: true },
     function (err, product) {
       if (err) {
