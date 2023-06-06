@@ -577,7 +577,7 @@ app.post("/AddReport", (req, res) => {
     });
     Prob.save(function (err) {
       if (!err) {
-        return res.redirect("/ListProdAd");
+        return res.redirect("/ListProd");
       }
     });
   });
