@@ -498,6 +498,7 @@ app.post("/Sign-Up", (req, res) => {
       }
       console.log(user);
       if (!user) {
+        console.log(req.body.password + "!!!!!");
         if (passwordschema.validate(req.body.password)) {
           users.save(function (err) {
             if (!err) {

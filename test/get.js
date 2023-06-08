@@ -6,8 +6,10 @@ const app = require("../app.js");
 let server = require("../server.js");
 var expect = chai.expect;
 chai.use(chaiHttp);
-
+const mongoose = require("mongoose");
 var test = require("mocha").test;
+const assert = require("assert");
+const User = require("../Database/DBs/User.js").User;
 
 //1
 
@@ -26,45 +28,6 @@ describe("Check if the routes goes Home page!", function () {
   });
 });
 
-//5
-/*
-describe('Check if the routes goes profile-cos page!', function () {
-
-    test('responds to /profile-cos', async () => {
-      const res = await request(app).get('/profile-cos');
-      expect(res.should.have.status(200));
-    });
-});
-
-//6
-
-describe('Check if the routes goes ListProd page!', function () {
-
-    test('responds to /ListProd', async () => {
-      const res = await request(app).get('/ListProd');
-      expect(res.should.have.status(200));
-    });
-});
-
-//7 
-describe('Check if the routes goes ListProdAd page!', function () {
-
-    test('responds to /ListProdAd', async () => {
-      const res = await request(app).get('/ListProdAd');
-      expect(res.should.have.status(200));
-    });
-});
-
-//8 
-describe('Check if the routes goes ListProdLe page!', function () {
-
-    test('responds to /ListProdLe', async () => {
-      const res = await request(app).get('/ListProdLe');
-      expect(res.should.have.status(200));
-    });
-});*/
-
-//9
 
 describe("Check if the routes goes policy page!", function () {
   test("responds to /policy", async () => {
@@ -73,12 +36,50 @@ describe("Check if the routes goes policy page!", function () {
   });
 });
 
-//10
-/*
-describe('Check if the routes goes AddProduct page!', function () {
 
-    test('responds to /AddProduct', async () => {
-      const res = await request(app).get('/AddProduct');
-      expect(res.should.have.status(200));
+describe("Integration Test: Add and Remove Row", function () {
+  var addedRowId;
+  before(async function () {
+    // Connect to your MongoDB database
+    await mongoose.connect("mongodb+srv://abedshah:abedshah@atlascluster.vxfky9m.mongodb.net/?retryWrites=true&w=majority", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
-});*/
+  });
+
+  after(async function () {
+    if (addedRowId) {
+      await User.deleteOne({ _id: addedRowId });
+    }
+    await mongoose.disconnect();
+  });
+
+  it("Adds a new row to the table and then removes it", async function () {
+    // Create a new row object
+    const newRow = {
+      FirstName: "John",
+      LastName: "Doe",
+      id: 123,
+      password: "password123",
+      email: "john.doe@example.com",
+      Gender: "Male",
+      Age: "30",
+      Phone: 1234567890,
+      Roll: "Student",
+      Birthdate: new Date(),
+    };
+
+    // Add the new row
+    const addResponse = await request(app)
+      .post("/Sign-Up")
+      .send(newRow)
+      .expect(302); // Assuming you're returning a redirect status code
+
+    // Check if the redirect goes to the expected location
+    assert.strictEqual(addResponse.header.location, "/Sign-Up");
+
+    // Retrieve the added row from the database
+    addedRowId = newRow._id;
+;
+  });
+});
