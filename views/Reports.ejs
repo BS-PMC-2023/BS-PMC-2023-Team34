@@ -101,12 +101,19 @@
             <th>Product Id</th>
             <th>Product Name</th>
             <th>Product Problem</th>
+            <th>Delete</th>
             
         </tr>
         <% reports.forEach(function(report) { %>
                 <td><%= report.product_id %></td>
                 <td><%= report.product_name %></td>
                 <td><%= report.problem %></td>
+                <td>
+                    <form action="/DeleteReport" method="POST">
+                        <input type="hidden" name="product_Id" value="<%= report.product_id %>">
+                        <input style="background-color: red;" type="submit" value="Delete">
+                    </form>
+                </td>
             </tr>
             
         <% }); %>

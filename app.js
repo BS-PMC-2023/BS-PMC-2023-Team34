@@ -12,6 +12,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 var engines = require("consolidate");
+const { reporters } = require("mocha");
 
 app.set("view engine", "ejs");
 app.use(express.static("views"));
@@ -236,6 +237,23 @@ app.post("/Delete", function (req, res) {
   });
 });
 
+app.post("/DeleteReport", function (req, res) {
+  // Retrieve the selected product ID from the request body
+  const product_id = req.body.product_id;
+  // Assuming you have implemented user authentication and retrieved the logged-in user's ID
+
+  Report.deleteOne({ Id: product_id }, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred while picking the device.");
+    } else {
+      res.redirect(req.headers.referer);
+    }
+  });
+});
+
+
+
 app.post("/DeleteOrder", function (req, res) {
   // Retrieve the selected product ID from the request body
   const orderId = req.body.orderId;
@@ -312,7 +330,7 @@ app.post("/pick", function (req, res) {
   lists.findOneAndUpdate(
     { Id: productId },
     req.cookies.user.Roll === "Admin"
-      ? { availableAmount: 0 }
+      ? { $inc: {availableAmount: -1}}
       : { $inc: { availableAmount:- neededAmount } },
     { new: true },
     function (err, product) {
@@ -329,7 +347,7 @@ app.post("/pick", function (req, res) {
           user_name: `${req.cookies.user.FirstName} - ${req.cookies.user.Phone}`,
           user_roll: req.cookies.user.Roll,
           status: Status.pending,
-          amount: req.cookies.user.Roll === "Admin" ? product.totalAmount : neededAmount,
+          amount: req.cookies.user.Roll === "Admin" ? 1 : neededAmount,
         });
         order.save();
         res.redirect(req.headers.referer);
