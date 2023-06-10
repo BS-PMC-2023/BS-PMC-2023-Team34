@@ -121,14 +121,14 @@ app.get("/AddProduct", function (req, res) {
 });
 
 app.get("/AddReport", function (req, res) {
-    auth(req, res);
-    res.render("AddReport.html");
+  auth(req, res);
+  res.render("AddReport.html");
 });
 
 app.get("/Reports", async (req, res) => {
   auth(req, res);
   let prob = await Report.find({});
-  res.render("Reports", {reports:prob});
+  res.render("Reports", { reports: prob });
 });
 
 app.get("/orders", async (req, res) => {
@@ -252,8 +252,6 @@ app.post("/DeleteReport", function (req, res) {
   });
 });
 
-
-
 app.post("/DeleteOrder", function (req, res) {
   // Retrieve the selected product ID from the request body
   const orderId = req.body.orderId;
@@ -330,8 +328,8 @@ app.post("/pick", function (req, res) {
   lists.findOneAndUpdate(
     { Id: productId },
     req.cookies.user.Roll === "Admin"
-      ? { $inc: {availableAmount: -1}}
-      : { $inc: { availableAmount:- neededAmount } },
+      ? { $inc: { availableAmount: -1 } }
+      : { $inc: { availableAmount: -neededAmount } },
     { new: true },
     function (err, product) {
       if (err) {
@@ -575,7 +573,7 @@ app.post("/ForgotPW", function (req, res) {
 app.post("/AddProduct", (req, res) => {
   let Prod = new lists({
     Id: req.body.Id,
-    Category:req.body.Category,
+    Category: req.body.Category,
     Name: req.body.Name,
     totalAmount: req.body.totalAmount,
     availableAmount: req.body.totalAmount,
@@ -589,18 +587,18 @@ app.post("/AddProduct", (req, res) => {
 });
 
 app.post("/AddReport", (req, res) => {
-    let Prob = new Report({
-      product_id: req.body.product_id,
-      product_name: req.body.product_name,
-      problem:req.body.problem,
-      user_id: null,
-    });
-    Prob.save(function (err) {
-      if (!err) {
-        return res.redirect("/ListProd");
-      }
-    });
+  let Prob = new Report({
+    product_id: req.body.product_id,
+    product_name: req.body.product_name,
+    problem: req.body.problem,
+    user_id: null,
   });
+  Prob.save(function (err) {
+    if (!err) {
+      return res.redirect("/ListProd");
+    }
+  });
+});
 
 app.post("/Editdate", async (req, res) => {
   let p = JSON.parse(req.body.Prod);

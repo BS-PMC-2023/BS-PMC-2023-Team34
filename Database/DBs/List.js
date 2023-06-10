@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ListSchema = new mongoose.Schema({
   Id: Number,
-  Category:String,
+  Category: String,
   Name: String,
   totalAmount: Number,
   availableAmount: Number,

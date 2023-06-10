@@ -12,8 +12,6 @@ const assert = require("assert");
 const { Report } = require("../Database/DBs/report.js");
 const User = require("../Database/DBs/User.js").User;
 
-
-
 //Unit Tests
 //1
 describe("Check if the routes goes to login page!", function () {
@@ -39,7 +37,6 @@ describe("Check if the routes goes policy page!", function () {
   });
 });
 
-
 //4
 test("responds to /AddReport", async () => {
   const res = await request(app).get("/AddReport");
@@ -52,13 +49,11 @@ test("responds to /AddProduct", async () => {
   expect(res).to.have.status(302);
 });
 
-
 //6
 test("responds to /ListProd", async () => {
   const res = await request(app).get("/ListProd");
   expect(res).to.have.status(302);
 });
-
 
 //7
 test("responds to /ListProdAd", async () => {
@@ -66,14 +61,11 @@ test("responds to /ListProdAd", async () => {
   expect(res).to.have.status(302);
 });
 
-
 //8
 test("responds to /Reports", async () => {
   const res = await request(app).get("/Reports");
   expect(res).to.have.status(302);
 });
-
-
 
 //9
 test("responds to /profile", async () => {
@@ -81,13 +73,11 @@ test("responds to /profile", async () => {
   expect(res).to.have.status(302);
 });
 
-
 //10
 test("responds to /Profile-Service1", async () => {
   const res = await request(app).get("/Profile-Service1");
   expect(res).to.have.status(302);
 });
-
 
 //11
 test("responds to /Profile-cos", async () => {
@@ -95,19 +85,20 @@ test("responds to /Profile-cos", async () => {
   expect(res).to.have.status(302);
 });
 
-
-
 //Integration Tests
-/// User Integration Test 
+/// User Integration Test
 //12
 describe("Integration Test: Add and Remove Row", function () {
   var addedRowId;
   before(async function () {
     // Connect to your MongoDB database
-    await mongoose.connect("mongodb+srv://abedshah:abedshah@atlascluster.vxfky9m.mongodb.net/?retryWrites=true&w=majority", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      "mongodb+srv://abedshah:abedshah@atlascluster.vxfky9m.mongodb.net/?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
   });
 
   after(async function () {
@@ -143,11 +134,8 @@ describe("Integration Test: Add and Remove Row", function () {
 
     // Retrieve the added row from the database
     addedRowId = newRow._id;
-;
   });
 });
-
-
 
 ///Reports Integration Test
 //13
@@ -155,10 +143,13 @@ describe("Integration Reports Test: Add and Remove Row", function () {
   var addedRowId;
   before(async function () {
     // Connect to your MongoDB database
-    await mongoose.connect("mongodb+srv://abedshah:abedshah@atlascluster.vxfky9m.mongodb.net/?retryWrites=true&w=majority", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      "mongodb+srv://abedshah:abedshah@atlascluster.vxfky9m.mongodb.net/?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
   });
 
   after(async function () {
@@ -172,8 +163,8 @@ describe("Integration Reports Test: Add and Remove Row", function () {
     // Create a new row object
     const newRow = {
       product_id: 12,
-      product_name: 'HDMI',
-      problem:'Broken',
+      product_name: "HDMI",
+      problem: "Broken",
     };
 
     // Add the new row
@@ -187,6 +178,5 @@ describe("Integration Reports Test: Add and Remove Row", function () {
 
     // Retrieve the added row from the database
     addedRowId = newRow._id;
-;
   });
 });

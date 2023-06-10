@@ -54,8 +54,6 @@
       color: #fff;
       text-decoration: none;
     }
-
-    
   </style>
 
   <body>
@@ -73,8 +71,18 @@
       <form action="/AddReport" method="POST">
         <input name="product_id" type="number" placeholder="Id" />
         <!---<input name="Name" type="text" placeholder="Name"  />-->
-        <input name="product_name" type="text" list="options" placeholder="Name" />
-        <input name="problem" type="text" placeholder="Write Here" style="width: 320px; height: 100px;" />
+        <input
+          name="product_name"
+          type="text"
+          list="options"
+          placeholder="Name"
+        />
+        <input
+          name="problem"
+          type="text"
+          placeholder="Write Here"
+          style="width: 320px; height: 100px"
+        />
         <button type="submit">Add</button>
       </form>
     </div>

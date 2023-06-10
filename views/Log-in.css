@@ -1,7 +1,7 @@
 body {
   background-image: url("images/r.png");
   background-size: cover;
-  font-family:"Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
 }
 
@@ -156,5 +156,9 @@ body {
 
 .navlinks ul li a:hover {
   color: #ffffff; /* Change to the desired color on hover */
-  background-color: rgb(198, 15, 15); /* Change to the desired background color on hover */
+  background-color: rgb(
+    198,
+    15,
+    15
+  ); /* Change to the desired background color on hover */
 }
