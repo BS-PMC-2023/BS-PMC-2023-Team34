@@ -575,6 +575,7 @@ app.post("/ForgotPW", function (req, res) {
 app.post("/AddProduct", (req, res) => {
   let Prod = new lists({
     Id: req.body.Id,
+    Category:req.body.Category,
     Name: req.body.Name,
     totalAmount: req.body.totalAmount,
     availableAmount: req.body.totalAmount,
