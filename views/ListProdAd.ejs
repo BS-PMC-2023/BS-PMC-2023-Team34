@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Product List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             display: flex;
@@ -101,6 +102,7 @@
         .pick-button:hover {
             background-color: #0da323;
         }
+
         .product-name {
             font-size: 18px;
             font-weight: bold;
@@ -115,6 +117,35 @@
             font-size: 18px;
             font-weight: bold;
         }
+
+        /* Updated search bar styles */
+        .search-bar {
+            margin-top: 20px;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            width: 70%;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            border: none;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -128,7 +159,11 @@
             <a href="/Log-out">Logout</a>
         </div>
     </div>
-    <h1>All Devices</h1>
+    <h1 class="page-title">Available Products</h1>
+    <div class="search-bar">
+        <input type="text" id="search-input" class="form-control search-input" placeholder="Search Category / Name">
+        <button class="btn btn-success search-button" type="button">Search</button>
+    </div>
     <table class="product-table">
         <tr>
             <th>Category</th>
@@ -152,9 +187,30 @@
                     </form>
                 </td>
             </tr>
-            
         <% }); %>
     </table>
-    <h3> Count Of Available products: <%= count %> </h3>
+    <h3>Count Of Available products: <%= count %></h3>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const rows = document.querySelectorAll('.product-table tr:not(:first-child)');
+
+            searchInput.addEventListener('input', function() {
+                const searchText = searchInput.value.toLowerCase();
+
+                rows.forEach(function(row) {
+                    const productName = row.querySelector('.product-name').textContent.toLowerCase();
+                    const productCategory = row.querySelector('.product-Category').textContent.toLowerCase();
+                    if (productName.includes(searchText) || productCategory.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
