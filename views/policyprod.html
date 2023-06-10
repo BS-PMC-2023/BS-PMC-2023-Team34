@@ -1,67 +1,86 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="List.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <style>
-      html,
-      body,
-      div,
-      p,
-      ul,
-      li {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        font: inherit;
-        vertical-align: baseline;
-        font-family: "Roboto", sans-serif;
-        font-weight: 100;
-      }
-
-      /* This class is applied to the containing div <div class="nav"> and is used to set the background color and height of the navbar */
-      .nav {
-        background: #000;
-        height: 60px; /* set same as height & line-height below */
-      }
-
-      /* This rule centers the nav items verticaly in the bar with the height and line height properties. Spacing between the nav items is controlled by setting right and left padding.  */
-      .nav li {
-        display: inline-block;
-        list-style: none;
-        height: 60px; /* should be the same as line-height */
-        line-height: 60px; /* should be the same as height */
-        padding: 0 40px; /* "0" sets top and bottom padding to none */
-      }
-
-      /* :hover allows you change the background color of the nav items when you mouse over them. Play around with the transition value to change the speed of the hover transition. */
-      .nav li:hover {
-        background: red;
-        transition: background 0.3s;
-      }
-
-      /* This rule is applied to the link <a> tag. It lets you turn off the link underline and set the link text color. */
-      .nav-link {
-        color: #fff;
-        text-decoration: none;
-      }
-
       body {
-        background-image: url("images/bg4.jpg");
+        background-image: url("images/r.png");
         background-size: cover;
       }
     </style>
   </head>
   <body>
-    <div class="nav">
-      <ul>
-        <li><a href="Home.html" class="nav-link">Home</a></li>
-        <li>
-          <a href="policy.html" class="nav-link"><em>Policy</em></a>
-        </li>
-        <li><a href="policyprod.html" class="nav-link">policy Products</a></li>
-        <li><a href="Log-in.html" class="nav-link">Log in</a></li>
-      </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="Home.html">Home</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="policy.html"><em>Policy</em></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="policyprod.html">Policy Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Log-in.html">Log in</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-4">
+      <h1>Policy of Products</h1>
+      <p>
+        <h3>General safety instructions</h3>
+      • You must act in a considered and logical way while using the device.
+      <br>
+      • You must use a standard computer desk where all the cables pass through the desk itself - do not place the device on an unstable cart, stand or table. The device may fall and cause serious damage.
+      <br>
+      • Do not place the device next to or over a radiator, heater, air conditioner or vent.
+      <br>
+      • Do not place any object on the power cable.
+      <br>
+      • Do not place the device where people may step on the power cable.
+      <br>
+      • Do not overload electrical outlets or extension cords. Overloading may reduce the performance of the device and cause fire or electric shock.
+      <br>
+      • Do not allow pets to chew on the power cord or the computer's interface cables.
+      <br>
+      • Do not place the cable in a place where pests such as mice and other rodents pass through that may cause damage to the cable. There is a possibility of electric shock or fire.
+      <br>
+      • Be sure to lay the cable loosely and not close it with furniture and accessories such as the desktop.
+      <br>
+      • Be sure to connect the product to standard electrical outlets that conform to the Israeli standard.
+      <br>
+      • Before moving the product, it must be disconnected from the electrical current source.
+      <br>
+      • Use only a standard electrical cable supplied with the manufacturer.
+      <br>
+      • Do not insert any objects into the device through the case openings. The objects may touch a dangerous voltage point and create a fire or electric shock hazard.
+      <br>
+      • Do not pour liquid of any kind on or into the device.
+      <br>
+      • In case of lack of use for a long time, it is recommended to disconnect the product from the electrical current and store it closed in the box in order to prevent as much as possible the penetration of dust and pests into it.
+      <br>
+      • Do not disassemble the device. When a repair is required, take the device to a qualified service technician. Opening or removing covers may expose you to dangerous electrical voltage or other hazards. Improper reassembly may result in electric shock the next time the device is used.
+      <br>
+      • Avoid using the device during a lightning storm. There is a possibility of electric shock from the lightning. If possible, disconnect the cable from the electrical outlet during the lightning storm.
+      <br>
+      • Before cleaning, disconnect the device from the electrical outlet. Do not use liquid or spray cleaners. Use only a damp cloth for cleaning.
+      </p>
     </div>
-  </body>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
 </html>
