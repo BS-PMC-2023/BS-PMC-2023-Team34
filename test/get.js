@@ -129,10 +129,6 @@ describe("Check if the routes goes to Policyprod page!", function () {
   });
 });
 
-
-
-
-
 //Integration Tests
 /// User Integration Test
 //Test 18
@@ -185,8 +181,6 @@ describe("Integration Test: Add and Remove Row", function () {
   });
 });
 
-
-
 ///Reports Integration Test
 //Test 19
 describe("Integration Reports Test: Add and Remove Row", function () {
@@ -231,9 +225,7 @@ describe("Integration Reports Test: Add and Remove Row", function () {
   });
 });
 
-
-
-//List Integreation Test 
+//List Integreation Test
 //Test 20
 describe("Integration List Test: Add and Remove Row", function () {
   var addedRowId;
@@ -259,8 +251,8 @@ describe("Integration List Test: Add and Remove Row", function () {
     // Create a new row object
     const newRow = {
       Id: 12,
-      Category: 'Camera',
-      Name: 'Canon',
+      Category: "Camera",
+      Name: "Canon",
       totalAmount: 12,
       availableAmount: 12,
     };
@@ -278,4 +270,3 @@ describe("Integration List Test: Add and Remove Row", function () {
     addedRowId = newRow._id;
   });
 });
-

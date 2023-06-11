@@ -98,7 +98,8 @@ function auth(req, res) {
 app.get("/ListProd", async (req, res) => {
   auth(req, res);
   let Prod = await lists.find({ availableAmount: { $gt: 0 } });
-  res.render("ListProd", { products: Prod, user: req.cookies.user });
+  const count = await lists.countDocuments();
+  res.render("ListProd", { products: Prod, user: req.cookies.user,count: count, });
 });
 app.get("/ListProdAd", async (req, res) => {
   auth(req, res);

@@ -151,9 +151,6 @@
                     <a class="nav-link" href="/mydevices">My Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/policyprod">Policy Of Products</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link logout" href="/Log-out">Logout</a>
                 </li>
             </ul>
@@ -194,7 +191,8 @@
                                 <input type="datetime-local" id="datetime-<%= product.Id %>" name="datetime-<%= product.Id %>" class="form-control date-input">
                                 <input type="number" id="amount-<%= product.Id %>" name="amount-<%= product.Id %>" min="0" max="<%= product.availableAmount %>" class="form-control amount-input">
                                 <div class="input-group-append">
-                                    <button type="submit" id="pick-button-<%= product.Id %>" class="btn btn-primary pick-button">Pick</button>
+                                    <!---<button type="submit" onclick="javascript:alert('Hello World!')" id="pick-button-<%= product.Id %>" class="btn btn-primary pick-button">Pick</button>-->
+                                    <button type="submit" onclick="javascript:if(document.getElementById('amount-<%= product.Id %>').value===''){alert('Amount Or Date Are Missing , Enter it please :');return false;}" id="pick-button-<%= product.Id %>" class="btn btn-primary pick-button">Pick</button>
                                 </div>
                             </div>
                         </form>
